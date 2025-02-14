@@ -1,6 +1,6 @@
 import { CardHeader, Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { getKeyTotalCounts, getReservationStatusCount } from "../actions/reservations.action";
-// import { BarChart } from "./barChart";
+import { BarChart } from "./barChart";
 import { StatusPieChart } from "./PieChart";
 import { CalendarCheck, CheckCheck, NotepadText, RouteOff, TicketSlash, Users } from "lucide-react";
 import { formatNumber } from "../utils/helper";
@@ -55,7 +55,7 @@ const Dashboard = async () => {
                 }
             </Card>
             <Card className="p-4 flex md:flex-row flex-col gap-4 my-5">
-                {/* <BarChart /> */}
+                <BarChart />
                 <StatusPieChart />
             </Card>
            <RecentReservations />

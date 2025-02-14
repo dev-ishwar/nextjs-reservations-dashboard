@@ -37,7 +37,7 @@ export async function BarChart() {
     const chartData = formatMonthlyDataForBarChart(reservationsResponse.data);
 
     return (
-        <div className="">
+        <div className="grow">
             <ReservationsBarChart chartConfig={chartConfig} chartData={chartData} />
         </div>
     )

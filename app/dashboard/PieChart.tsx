@@ -51,7 +51,7 @@ export function StatusPieChart() {
   }, [])
 
   return (
-    <Card className="flex flex-col items-center p-4">
+    <Card className="flex flex-col items-center p-4 grow">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
