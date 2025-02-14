@@ -1,63 +1,60 @@
-import {
-    Sidebar,
-    SidebarContent,
-    // SidebarFooter,
-    // SidebarHeader,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { LayoutDashboard, TicketsIcon } from "lucide-react";
-import Link from "next/link";
+"use client"
 
-// Menu items
-const items = [
+import * as React from "react"
+import {
+  Home,
+  LayoutDashboard,
+  Tickets,
+} from "lucide-react"
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarRail,
+} from "@/components/ui/sidebar"
+import Link from "next/link"
+
+const data = {
+  navMain: [
     {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutDashboard
+      title: "Home",
+      url: "/",
+      icon: Home,
+      // isActive: true,
     },
     {
-        title: 'Reservations',
-        url: '/reservations',
-        icon: TicketsIcon
-    }
-]
-
-const AppSideBar = () => {
-    return (
-        <Sidebar collapsible="icon" variant="sidebar" className="overflow-hidden bg-black">
-            {/* <SidebarHeader /> */}
-            <SidebarContent className="bg-red-800">
-                <SidebarGroup >
-                    <SidebarGroupLabel>
-                        NextJs Dashboard
-                    </SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {
-                                items.map(item => (
-                                    <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild isActive>
-                                            <Link href={item.url}>
-                                                <item.icon />
-                                                <span>{item.title}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                ))
-                            }
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-                <SidebarGroup />
-            </SidebarContent>
-            {/* <SidebarFooter /> */}
-        </Sidebar>
-    )
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+      // isActive: true,
+    },
+    {
+      title: "Reservations",
+      url: "/reservations",
+      icon: Tickets,
+      // isActive: true,
+    },
+  ],
 }
 
-export default AppSideBar;
+export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar collapsible="offcanvas" variant="sidebar" {...props} >
+      <SidebarHeader className="p-5">
+        <h2 className="text-xl">NextJS Dashboard</h2>
+      </SidebarHeader>
+      <SidebarContent className="px-5 text-sm">
+        {
+          data.navMain.map(item => (
+              <Link key={item.title} href={item.url} className="flex items-center gap-3 border rounded-xl border-transparent hover:border-[hsl(var(----border))] transition-all p-2">
+                {item.icon && <item.icon />}
+                {item.title}
+              </Link>
+          ))
+        }
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
+  )
+}

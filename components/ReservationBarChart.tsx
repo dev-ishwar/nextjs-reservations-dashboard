@@ -1,11 +1,11 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
 import { MONTH_MAPPING } from "@/app/utils/constants"
 import { Card, CardContent } from "./ui/card"
-import { ReservationBarChartData } from "@/app/dashboard/barChart"
+import { ReservationBarChartData } from "@/app/(dashboard)/dashboard/barChart"
 
 type PropsType = {
     chartData: Array<ReservationBarChartData>,
@@ -13,11 +13,10 @@ type PropsType = {
 }
 
 export function ReservationsBarChart({ chartData, chartConfig }: Readonly<PropsType>) {
-    console.log('chartData: ', chartData, chartConfig)
     return (
         <Card className="flex flex-col items-center p-4">
             <CardContent className="flex-1 pb-0">
-                <ChartContainer config={chartConfig} className="aspect-auto h-[250px]">
+                <ChartContainer config={chartConfig} className="aspect-auto h-[250px] min-w-[250px]">
                     <BarChart
                         accessibilityLayer
                         data={chartData}
@@ -35,12 +34,6 @@ export function ReservationsBarChart({ chartData, chartConfig }: Readonly<PropsT
                             // minTickGap={32}
                             tickFormatter={(value: number) => MONTH_MAPPING[value].slice(0, 3)}
                         />
-                        <YAxis
-                            tickLine={false}
-                            axisLine={false}
-                            tickMargin={8}
-                        />
-                        {/* MARK: TODO: RCA and fix app crash  */}
                         <ChartTooltip
                             content={
                                 <ChartTooltipContent
@@ -51,7 +44,7 @@ export function ReservationsBarChart({ chartData, chartConfig }: Readonly<PropsT
                                 />
                             }
                             cursor={false}
-                            defaultIndex={1}
+                            defaultIndex={0}
                         />
 
                         <ChartLegend content={<ChartLegendContent />} />

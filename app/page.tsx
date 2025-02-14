@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="grid place-content-center font-medium text-xl min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="flex items-center gap-2 border rounded-4xl px-3 py-2 animate-bounce transition-all ">
+      <div className="flex items-center gap-2 border rounded-4xl px-4 py-3 animate-bounce transition-all ">
         <Link href={'/dashboard'} >GO TO DASHBOARD</Link>
         <ArrowRight />
       </div>

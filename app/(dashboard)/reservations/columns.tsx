@@ -1,8 +1,8 @@
 'use client';
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ReservationTableInterface } from "../utils/types";
-import { formatDateTime } from "../utils/helper";
+import { ReservationTableInterface } from "../../utils/types";
+import { formatDateTime } from "../../utils/helper";
 
 export const columns: ColumnDef<ReservationTableInterface>[] = [
     {

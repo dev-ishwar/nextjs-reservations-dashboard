@@ -1,7 +1,7 @@
 import { ChartConfig } from "@/components/ui/chart"
 import { ReservationsBarChart } from "@/components/ReservationBarChart";
-import { getReservations } from "../actions/reservations.action";
-import { ReservationsChartInterface } from "../utils/types";
+import { getReservations } from "../../actions/reservations.action";
+import { ReservationsChartInterface } from "../../utils/types";
 
 const chartConfig = {
     reservation: {

@@ -1,13 +1,13 @@
 'use client';
 
 import { DataTable } from "@/components/ui/data-table";
-import type { GetAllReservationsResponse } from "../api/reservations/route";
-import { getAllReservations } from "../utils/services/reservations.service";
+import type { GetAllReservationsResponse } from "../../api/reservations/route";
+import { getAllReservations } from "../../utils/services/reservations.service";
 import { columns } from './columns';
 import { useEffect, useState } from "react";
 import { PaginationState } from "@tanstack/react-table";
-import { ReservationTableInterface } from "../utils/types";
-import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "../utils/constants";
+import { ReservationTableInterface } from "../../utils/types";
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "../../utils/constants";
 
 const ReservationsTable = ({ recentTransactions }: { recentTransactions?: number }) => {
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: DEFAULT_PAGE_INDEX, pageSize: recentTransactions ?? DEFAULT_PAGE_SIZE });

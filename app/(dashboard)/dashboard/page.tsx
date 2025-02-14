@@ -1,9 +1,9 @@
 import { CardHeader, Card, CardTitle, CardDescription } from "@/components/ui/card";
-import { getKeyTotalCounts, getReservationStatusCount } from "../actions/reservations.action";
+import { getKeyTotalCounts, getReservationStatusCount } from "../../actions/reservations.action";
 import { BarChart } from "./barChart";
 import { StatusPieChart } from "./PieChart";
 import { CalendarCheck, CheckCheck, NotepadText, RouteOff, TicketSlash, Users } from "lucide-react";
-import { formatNumber } from "../utils/helper";
+import { formatNumber } from "../../utils/helper";
 import RecentReservations from "./RecentReservations";
 
 const CountCard = ({ label, value }: { label: string, value: number }) => {
@@ -39,7 +39,6 @@ const Dashboard = async () => {
     // console.log('chartData', totals.data, reservations.data, statusCount)
     return (
         <main className="p-5">
-            <h1 className="text-xl font-medium">Dashboard</h1>
             <Card className="flex justify-between gap-4 p-5 flex-wrap my-5">
                 {
                     totals.data?.map(item => (
