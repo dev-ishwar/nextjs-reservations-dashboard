@@ -16,13 +16,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
-  { status: "confirmed", count: 275, fill: "var(--color-confirmed)" },
-  { status: "canceled", count: 200, fill: "var(--color-canceled)" },
-  { status: "finished", count: 287, fill: "var(--color-finished)" },
-  { status: "noShow", count: 173, fill: "var(--color-noShow)" },
-]
-
 const chartConfig = {
   reservations: {
     label: "Reservations",
@@ -45,10 +38,27 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function StatusPieChart() {
+type PropsType = {
+  statusCount: { count: number, label: string, status: string }[]
+}
+
+export function StatusPieChart({ statusCount }: Readonly<PropsType>) {
+
+  const chartData = React.useMemo(() => {
+    return statusCount.map(item => {
+      switch (item.status) {
+        case 'confirmed': return { ...item, fill: "var(--color-confirmed)" };
+        case 'canceled': return { ...item, fill: "var(--color-canceled)" };
+        case 'finished': return { ...item, fill: "var(--color-finished)" };
+        case 'noShow': return { ...item, fill: "var(--color-noShow)" };
+        default: return { ...item };
+      }
+    })
+  }, [statusCount])
+
   const totalReservations = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)
-  }, [])
+  }, [chartData])
 
   return (
     <Card className="flex flex-col items-center p-4 grow">

@@ -4,11 +4,6 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { createClient } from "../utils/supabase/server";
 import { ReservationsChartInterface, ReservationStatus } from "../utils/types";
 
-interface KeyValueType<T> {
-    label: string,
-    value: T
-}
-
 interface ResponseSuccess<T> {
     data: T,
     error: null,
@@ -21,7 +16,15 @@ interface ResponseError {
 
 type ResponseType<T> = ResponseSuccess<T> | ResponseError;
 
-export const getKeyTotalCounts = async (): Promise<ResponseType<KeyValueType<number>[]>> => {
+type ReservationCount = {
+    label: string,
+    status: string,
+    count: number,
+}
+
+type TotalsType =  Omit<ReservationCount, 'status'>
+
+export const getKeyTotalCounts = async (): Promise<ResponseType<TotalsType[]>> => {
     const supabase = await createClient();
 
     const reservations = await supabase.from('reservations').select('id, peopleCount', { count: 'estimated', head: false });
@@ -38,11 +41,11 @@ export const getKeyTotalCounts = async (): Promise<ResponseType<KeyValueType<num
         data: [
             {
                 label: 'Total Reservations',
-                value: reservations.count ?? 0,
+                count: reservations.count ?? 0,
             },
             {
                 label: 'Total People',
-                value: totalPeople
+                count: totalPeople
             }
         ],
         error: null
@@ -67,7 +70,7 @@ export const getReservations = async (): Promise<ResponseType<ReservationsChartI
     }
 }
 
-export const getReservationStatusCount = async (): Promise<ResponseType<KeyValueType<number>[]>> => {
+export const getReservationStatusCount = async (): Promise<ResponseType<ReservationCount[]>> => {
     const supabase = await createClient();
 
     const statusConfirmed = supabase.from('reservations').select('id, status', { count: 'estimated', head: false }).eq('status', ReservationStatus.CONFIRMED);
@@ -78,10 +81,10 @@ export const getReservationStatusCount = async (): Promise<ResponseType<KeyValue
     try {
         const [confirmed, canceled, finished, noShow] = await Promise.all([statusConfirmed, statusCanceled, statusFinished, statusNoShow]);
         const data = [
-            { label: 'Confirmed', value: confirmed.count ?? 0 },
-            { label: 'Canceled', value: canceled.count ?? 0 },
-            { label: 'Finished', value: finished.count ?? 0 },
-            { label: 'No Show', value: noShow.count ?? 0 },
+            { label: 'Confirmed', status: 'confirmed', count: confirmed.count ?? 0 },
+            { label: 'Canceled', status: 'canceled', count: canceled.count ?? 0 },
+            { label: 'Finished', status: 'finished', count: finished.count ?? 0 },
+            { label: 'No Show', status: 'noShow', count: noShow.count ?? 0 },
         ];
 
         return {
